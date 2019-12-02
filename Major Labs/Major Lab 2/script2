@@ -45,6 +45,23 @@ then
   else
     echo "incorrect command line argument: $1"
     echo "Usage: `basename $0` -0 <file1> <file2>"
+    echo "    or"
+    echo "       `basename $0` -1 <file>"
+    echo "    or"
+    echo "       `basename $0` -2"
+    exit
+  fi
+fi
+
+if [ $# -eq 1 ]
+then
+  if [ "$1" == "-2" ]
+  then
+    echo "Good bye"
+    exit
+  else
+    echo "incorrect command line argument: $1"
+    echo "Usage: `basename $0` -0 <file1> <file2>"
     echo " or"
     echo " `basename $0` -1 <file>"
     echo " or"
@@ -53,27 +70,9 @@ then
   fi
 fi
 
-if [ $# -eq 1 ]
-then
-if [ "$1" == "-2" ]
-then
-echo "Good bye"
-exit
-else
-echo "incorrect command line argument: $1"
-echo "Usage: `basename $0` -0 <file1> <file2>"
-11/20/2019 www.cas.mcmaster.ca/~franek/courses/se2xa3/labs/proj2/A/script2
-www.cas.mcmaster.ca/~franek/courses/se2xa3/labs/proj2/A/script2 2/2
-echo " or"
-echo " `basename $0` -1 <file>"
-echo " or"
-echo " `basename $0` -2"
-exit
-fi
-fi
 echo "incorrect number of command line arguments"
 echo "Usage: `basename $0` -0 <file1> <file2>"
-echo " or"
-echo " `basename $0` -1 <file>"
-echo " or"
-echo " `basename $0` -2"
+echo "    or"
+echo "       `basename $0` -1 <file>"
+echo "    or"
+echo "       `basename $0` -2"
