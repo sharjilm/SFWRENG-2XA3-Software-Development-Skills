@@ -1,0 +1,114 @@
+#!/bin/bash
+#version A
+
+# create Outer_Directory
+echo "Outer_Directory created"
+mkdir Outer\_Directory
+
+# move there
+cd Outer\_Directory
+
+# create the files
+for i in {1..14}
+do
+ fname="proj"$i"_file"
+ x=$((100*$i))
+ echo "generated value=$x" > $fname
+ i=$(($i+1))
+ x=$((100*$i))
+ a="proj"$i"_file"
+ echo "Next file is $a with generated value=$x" >> $fname
+done
+echo "generated value=1500" > proj15_file
+echo "Next file does not exist" >> proj15_file
+
+# list contents of all created files in a loop
+echo "Created files"
+for i in {1..15}
+do
+ fname="proj"$i"_file"
+ echo "$fname:"
+ cat $fname
+done
+
+# create Inner_Directory
+echo "Inner_Directory created"
+mkdir Inner\_Directory
+
+# move all created files containing '3' or '6' to Inner_Directory
+for i in {1..15}
+do
+ fname="proj"$i"_file"
+ x=`grep '3\|6' $fname`
+ if [ -n "$x" ]
+ then
+   mv $fname Inner\_Directory
+ fi
+done
+
+# display regular files in Outer_Directory
+echo "Outer_Directory regular files"
+x=`ls`
+for i in $x
+do
+ if [ -f $i ]
+ then
+   echo $i
+ fi
+done
+
+# display regular files in Inner_Directory
+echo "Inner_Directory regular files"
+cd Inner\_Directory
+x=`ls`
+for i in $x
+do
+ if [ -f $i ]
+ then
+   echo $i
+ fi
+done
+
+#concatenate all created files in Inner_Directory into a file EVERYTHING
+first=1
+for i in {1..15}
+do
+ fname="proj"$i"_file"
+ if [ -f "$fname" ]
+ then
+  if [ first = 1 ]
+  then
+    cat $fname > EVERYTHING
+    first=0
+  else
+    cat $fname >> EVERYTHING
+  fi
+ fi
+done
+
+# remove all created files from Inner_Direcory
+for i in {1..15}
+do
+ fname="proj"$ii"_file"
+ if [ -f "$fname" ]
+ then
+   rm $fname
+ fi
+done
+
+# display all files in Inner_Directory
+ls
+
+# cleanup
+cd ..
+rm Inner\_Directory/*
+rmdir Inner\_Directory
+echo "Inner_Directory and all its files removed"
+cd ..
+rm Outer\_Directory/*
+rmdir Outer\_Directory
+echo "Outer_Directory and all its files removed"
+
+# show current directory
+echo "Current Directory"
+ls
