@@ -1,0 +1,79 @@
+#!/bin/bash
+# version A
+
+# check command line arguments
+
+if [ $# -lt 1 -o $# -gt 3 ]
+then
+  echo "incorrect number of command line arguments"
+  echo "Usage: `basename $0` -0 <file1> <file2>"
+  echo "    or"
+  echo "       `basename $0` -1 <file>"
+  echo "    or"
+  echo "       `basename $0` -2"
+  exit
+fi
+
+if [ $# -eq 3 ]
+then
+  if [ "$1" == "-0" ]
+  then
+    echo "creating file $2"
+    echo "test1" > $2
+    cat $2
+    echo "creating file $3"
+    echo "test2" > $3
+    cat $3
+    exit
+  else
+    echo "incorrect number of command line arguments"
+    echo "Usage: `basename $0` -0 <file1> <file2>"
+    echo "    or"
+    echo "       `basename $0` -1 <file>"
+    echo "    or"
+    echo "       `basename $0` -2"
+    exit
+  fi
+fi
+
+if [ $# -eq 2 ]
+then
+  if [ "$1" == "-1" ]
+  then
+    echo "testing file $2"
+    exit
+  else
+    echo "incorrect command line argument: $1"
+    echo "Usage: `basename $0` -0 <file1> <file2>"
+    echo " or"
+    echo " `basename $0` -1 <file>"
+    echo " or"
+    echo " `basename $0` -2"
+    exit
+  fi
+fi
+
+if [ $# -eq 1 ]
+then
+if [ "$1" == "-2" ]
+then
+echo "Good bye"
+exit
+else
+echo "incorrect command line argument: $1"
+echo "Usage: `basename $0` -0 <file1> <file2>"
+11/20/2019 www.cas.mcmaster.ca/~franek/courses/se2xa3/labs/proj2/A/script2
+www.cas.mcmaster.ca/~franek/courses/se2xa3/labs/proj2/A/script2 2/2
+echo " or"
+echo " `basename $0` -1 <file>"
+echo " or"
+echo " `basename $0` -2"
+exit
+fi
+fi
+echo "incorrect number of command line arguments"
+echo "Usage: `basename $0` -0 <file1> <file2>"
+echo " or"
+echo " `basename $0` -1 <file>"
+echo " or"
+echo " `basename $0` -2"
