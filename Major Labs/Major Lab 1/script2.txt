@@ -1,0 +1,46 @@
+#!/bin/bash
+## version A
+
+# create DIR1
+mkdir DIR1
+echo "DIR1 created"
+
+# create DIR2
+cd DIR1
+mkdir DIR2
+echo "DIR1/DIR2 created"
+
+#create file X in DIR2
+cd DIR2
+echo "I am file X" > X
+
+# show DIR2
+echo "contents of DIR2"
+ls
+
+# show DIR1
+cd ..
+echo "contents of DIR1"
+ls
+
+#show current directory
+cd ..
+echo "contents of current directory"
+ls
+
+# move X to current dir
+mv DIR1/DIR2/X .
+
+#remove DIR1 using rmdir
+rmdir DIR1
+
+#remove DIR1 using rm
+rm DIR1
+
+#remove DIR1 using rm -r
+rm -r DIR1
+
+#show current directory
+ls
+
+

@@ -1,0 +1,47 @@
+all: q1 q2 q3 ex1 ex2 ex3
+	rm code1.o code.* code2.* code3.* script1 script2 script3
+
+code1.o: code1.cpp
+	g++ -c code1.cpp
+code2.o: code2.cpp
+	g++ -c code2.cpp
+code3.o: code3.cpp
+	g++ -c code3.cpp
+q1: code.cpp code1.o script1
+	script1
+q2: code.cpp code2.o script2
+	script2
+q3: code1.cpp code3.o script3
+	script3
+code2.cpp: code1.cpp
+	tr '1' '2' < code1.cpp > temp
+	sed 's/ALPHA/BETA/g' temp > code2.cpp
+	rm temp
+code3.cpp: code1.cpp
+	tr '1' '3' < code1.cpp > temp
+	sed 's/ALPHA/GAMMA/g' temp > code3.cpp
+	rm temp
+script1: script0
+	sed 's/prog/code/g' < script0 > script1
+	chmod u+x script1
+script2: script1
+	tr '1' '2' < script1 > temp
+	sed 's/AB/BC/g' temp > script2
+	chmod u+x script2
+	rm temp
+script3: script1
+	tr '1' '3' < script1 > temp
+	sed 's/AB/CD/g' temp > script3
+	chmod u+x script3
+	rm temp
+code.cpp: partA partB
+	cp partA code.cpp
+	cat partB >> code.cpp
+ex1: code.cpp
+	g++ -o ex1 code.cpp -D_W1
+ex2: code.cpp
+	g++ -o ex2 code.cpp -D_W2
+ex3: code.cpp
+	g++ -o ex3 code.cpp 
+clean:
+	rm q1 q2 q3 ex1 ex2 ex3

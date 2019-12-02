@@ -1,0 +1,36 @@
+build: document1 document2 document3 document4
+	mkdir DOCREP1
+	cp document1 DOCREP1/document
+	mkdir DOCREP2
+	cp document2 DOCREP2/document
+	mkdir DOCREP3
+	cp document3 DOCREP3/document
+	mkdir DOCREP4
+	cp document4 DOCREP4/document
+
+DOCUMENT: f1 f2 f3 f4
+	mv f4 DOCUMENT
+	cat f3 >> DOCUMENT
+	rm f3
+	cat f2 >> DOCUMENT
+	rm f2
+	cat f1 >> DOCUMENT
+	rm f1
+	rm arrange
+f1: arrange DOCREP1/document
+	arrange DOCREP1/document > f1
+f2: arrange DOCREP2/document
+	arrange DOCREP2/document > f2
+f3: arrange DOCREP3/document
+	arrange DOCREP3/document > f3
+f4: arrange DOCREP4/document
+	arrange DOCREP4/document > f4
+arrange: arrange.cpp
+	g++ -o arrange arrange.cpp
+
+clean: 
+	rm -r DOCREP1
+	rm -r DOCREP2
+	rm -r DOCREP3
+	rm -r DOCREP4
+	rm DOCUMENT
